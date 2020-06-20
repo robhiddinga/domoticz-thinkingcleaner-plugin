@@ -93,7 +93,7 @@ class BasePlugin:
 
         protocol = "http"
         port     = "80"
-        url = protocol + "://" + ipAddress + ":" + port + "/status.json
+        url = protocol + "://" + ipAddress + ":" + port + "/status.json"
         logDebugMessage('Retrieve Roomba data from ' + url)
 
         try:
@@ -133,11 +133,6 @@ class BasePlugin:
            self.battery  = jsonObject["Body"]["status"]["battery_charge"]["Value"]
            self.state    = jsonObject["Body"]["status"]["cleaner_state"]["Value"]
            self.cleaning = jsonObject["Body"]["status"]["cleaning"]["Value"]
-
-        if (status == "Active"):
-           # Get the production data
-        else:
-           self.currentWatts = 0
 
         if (status == "Off"):
            # Use saved  data
