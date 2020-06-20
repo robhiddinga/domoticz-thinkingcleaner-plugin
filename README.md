@@ -4,7 +4,7 @@
  install
 
  goto your plugins folder
-  git clone https://github.com/robhiddinga/python-roomba-thinkcleaner
+  git clone https://github.com/robhiddinga/domoticz-thinkcleaner-plugin
 
 
 
