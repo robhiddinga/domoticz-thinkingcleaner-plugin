@@ -161,10 +161,10 @@ class BasePlugin:
     def updateDeviceCurrent(self):
         # Device 1 - current today
 
-        self.previousCurrentWatt = self.currentWatts
-        logDebugMessage("Current Watts " + str(self.currentWatts))
+        self.previousBattery = self.battery
+        logDebugMessage("Current level " + str(self.battery))
         try:
-         Devices[1].Update(self.currentWatts, str(self.currentWatts), Images["FroniusInverter"].ID)
+         Devices[1].Update(self.battery, str(self.battery), Images["Roomba"].ID)
         except KeyError as e:
          cause = e.args[0]
          logErrorMessage("Cause " + str(cause))
@@ -175,18 +175,9 @@ class BasePlugin:
 
         Devices[1].Update(0, "0", Images["FroniusInverterOff"].ID)
 
-        if Parameters["Mode5"] == "Yes":
-         self.calcTodayWh = self.previousTodayWh + self.whFraction
-         self.calcTotalWh = self.previousTotalWh + self.whFraction
-        else:
-         self.calcTodayWh = self.previousTodayWh
-         self.calcTotalWh = self.previousTotalWh
-
-        if  calcTotalWh > 0:
-         Devices[2].Update(0, "0;" + str(calcTotalWh))
-
-        if  calcTodayWh > 0:
-         Devices[3].Update(0, "0;" + str(calcTodayWh))
+        self.battery  = self.previousBattery
+        self.state    = self.previousState
+        self.cleaning = self.previousCleaning
 
     def onStop(self):
         logDebugMessage("onStop called")
