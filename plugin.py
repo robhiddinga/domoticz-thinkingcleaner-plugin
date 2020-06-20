@@ -50,7 +50,7 @@ class BasePlugin:
         if ('RoombaVacuum' not in Images): Domoticz.Image('Roomba Icon.zip').Create()
         if ('RoombaVacuumOff' not in Images): Domoticz.Image('Roomba Off Icons.zip').Create()
 
-        Devices[1].Update(0, sValue=str(Devices[1].sValue), Image=Images["Roomba"].ID)
+        Devices[1].Update(0, sValue=str(Devices[1].sValue), Image=Images["RoombaVacuum"].ID)
 
         return True
 
