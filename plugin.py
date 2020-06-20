@@ -47,8 +47,8 @@ class BasePlugin:
         Domoticz.Heartbeat(self.heartbeat)
         self.intervalCounter = 0
 
-        if ('RoombaVacuum' not in Images): Domoticz.Image('Roomba Icon.zip').Create()
-        if ('RoombaVacuumOff' not in Images): Domoticz.Image('Roomba Off Icons.zip').Create()
+        if ('RoombaVacuum' not in Images): Domoticz.Image('roombaVacuum.zip').Create()
+        if ('RoombaVacuumOff' not in Images): Domoticz.Image('roombaVacuum.zip').Create()
 
         Devices[1].Update(0, sValue=str(Devices[1].sValue), Image=Images["RoombaVacuum"].ID)
 
@@ -166,7 +166,7 @@ class BasePlugin:
         self.previousBattery = self.battery
         logDebugMessage("Current level " + str(self.battery))
         try:
-         Devices[1].Update(self.battery, str(self.battery), Images["Roomba"].ID)
+         Devices[1].Update(self.battery, str(self.battery), Images["RoombaVacuum"].ID)
         except KeyError as e:
          cause = e.args[0]
          logErrorMessage("Cause " + str(cause))
