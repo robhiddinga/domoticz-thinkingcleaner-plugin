@@ -59,8 +59,8 @@ class BasePlugin:
 
         if self.intervalCounter == 1:
 
-            ipAddress      = Parameters["Mode1"]
-            jsonObject      = self.getStatus( ipAddress)
+            ipAddress       = Parameters["Mode1"]
+            jsonObject      = self.getStatus(ipAddress)
             logDebugMessage(str(jsonObject))
 
             self.getRoomaStatusData(status, jsonObject)
