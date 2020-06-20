@@ -1,4 +1,4 @@
-#           Fronius Inverter Plugin
+#           Domoticz Roomba ThinkCleaner Plugin
 #
 #           Author:     RobH 2020.
 #
