@@ -3,7 +3,7 @@
 #           Author:     RobH 2020.
 #
 """
-<plugin key="ThinkCleaner" name="Think Cleaner" author="RobH" version="0.2.0" wikilink="https://github.com/robhiddinga/domoticz-thinkcleaner-plugin.git" externallink="http://www.thinkcleaner.com">
+<plugin key="ThinkCleaner" name="Think Cleaner" author="RobH" version="0.2.1" wikilink="https://github.com/robhiddinga/domoticz-thinkcleaner-plugin.git" externallink="http://www.thinkcleaner.com">
     <params>
         <param field="Mode1" label="IP Address" required="true" width="200px" />
         <param field="Mode6" label="Debug" width="100px">
