@@ -28,11 +28,11 @@ class BasePlugin:
     intervalCounter     = None
     heartbeat           = 30
     battery             = 0
-    state               = 0
-    cleaning            = 0
+    state               = ""
+    cleaning            = ""
     previousBattery     = 0
-    previousState       = 0
-    previousCleaning    = 0
+    previousState       = ""
+    previousCleaning    = ""
 
     def onStart(self):
         if Parameters["Mode6"] != "Normal":
@@ -62,21 +62,23 @@ class BasePlugin:
             ipAddress       = Parameters["Mode1"]
             jsonObject      = self.getStatus(ipAddress)
             logDebugMessage(str(jsonObject))
+            status = self.isRoombaActive(jsonObject)
+            logDebugMessage("Status = " + str(status))
 
-            status = self.getRoomaStatusData(status, jsonObject)
+            self.getRoombaStatusData(status, jsonObject)
 
             if (status != "Off"):
 
                 self.updateDeviceCurrent()
 
-                if (self.inverterWorking == False):
-                    self.inverterWorking = True
+                if (self.RoombaWorking == False):
+                    self.RoombaWorking = True
 
             else:
                 self.logErrorCode(jsonObject)
 
-                if (self.inverterWorking == True):
-                    self.inverterWorking = False
+                if (self.RoombaWorking == True):
+                    self.RoombaWorking = False
                     self.updateDeviceOff()
 
 
@@ -119,7 +121,7 @@ class BasePlugin:
         else:
             logDebugMessage("Data from Roomba ")
             s = str(jsonObject)
-            if s.find('result')== "success":
+            if s.find('success') > 0:
               logDebugMessage("Data from Roomba " + s)
               return "Active"
             else:
@@ -130,9 +132,9 @@ class BasePlugin:
 
         if (status != "Off"):
            # Get the header data  when active or online
-           self.battery  = jsonObject["Body"]["status"]["battery_charge"]["Value"]
-           self.state    = jsonObject["Body"]["status"]["cleaner_state"]["Value"]
-           self.cleaning = jsonObject["Body"]["status"]["cleaning"]["Value"]
+           self.battery  = jsonObject["status"]["battery_charge"]
+           self.state    = jsonObject["status"]["cleaner_state"]
+           self.cleaning = jsonObject["status"]["cleaning"]
 
         if (status == "Off"):
            # Use saved  data
@@ -148,7 +150,7 @@ class BasePlugin:
 
         else:
          code   = 0
-         reason = jsonObject["Body"]["status"]["result"]
+         reason = jsonObject["result"]
          if (code == 0):
             reason = 'Roomba is active, but no action'
 
