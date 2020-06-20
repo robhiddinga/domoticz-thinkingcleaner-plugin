@@ -26,6 +26,7 @@ import urllib.error
 class BasePlugin:
     RoombaWorking       = True
     intervalCounter     = None
+    name                = "Roomba"
     heartbeat           = 30
     battery             = 0
     state               = ""
@@ -33,6 +34,7 @@ class BasePlugin:
     previousBattery     = 0
     previousState       = ""
     previousCleaning    = ""
+    previousName        = "Roomba"
 
     def onStart(self):
         if Parameters["Mode6"] != "Normal":
@@ -135,12 +137,14 @@ class BasePlugin:
 
         if (status != "Off"):
            # Get the header data  when active or online
+           self.name     = jsonObject["status"]["name"]
            self.battery  = jsonObject["status"]["battery_charge"]
            self.state    = jsonObject["status"]["cleaner_state"]
            self.cleaning = jsonObject["status"]["cleaning"]
 
         if (status == "Off"):
            # Use saved  data
+           self.name     = self.previousName
            self.battery  = self.previousBattery
            self.state    = self.previousState
            self.cleaning = self.previousCleaning
@@ -149,13 +153,13 @@ class BasePlugin:
 
         if str(jsonObject) == "None":
            code = 1
-           reason = " Roomba is offline"
+           reason = self.previousName + " is offline"
 
         else:
          code   = 0
          reason = jsonObject["result"]
          if (code == 0):
-            reason = 'Roomba is active, but no action'
+            reason = self.previousName + " is active, but no action"
 
         if (code != 0):
             logErrorMessage("Code: " + str(code) + ", reason: " + reason)
@@ -180,6 +184,8 @@ class BasePlugin:
         except KeyError as e:
          cause = e.args[0]
          logErrorMessage("Cause " + str(cause))
+
+        Devices[1].Update(name=self.name + " " + self.state)
 
         return
 

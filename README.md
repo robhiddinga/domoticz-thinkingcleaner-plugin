@@ -1,7 +1,10 @@
 # python roomba thinkcleaner
  domoticz think cleaner
 
-The script creates a
+The script creates a device with status info of your ThinkCleaner
+Create yourself a dummy device with on anf off action to control your Roomba:
+<ipadress>/command.json?command=clean and
+<ipadress>/command.json?command=dock
 
  install
 
