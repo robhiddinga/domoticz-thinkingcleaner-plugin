@@ -63,7 +63,7 @@ class BasePlugin:
             jsonObject      = self.getStatus(ipAddress)
             logDebugMessage(str(jsonObject))
 
-            self.getRoomaStatusData(status, jsonObject)
+            status = self.getRoomaStatusData(status, jsonObject)
 
             if (status != "Off"):
 
