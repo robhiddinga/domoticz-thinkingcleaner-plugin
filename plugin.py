@@ -5,7 +5,9 @@
 """
 <plugin key="ThinkCleaner" name="Think Cleaner" author="RobH" version="0.2.1" wikilink="https://github.com/robhiddinga/domoticz-thinkcleaner-plugin.git" externallink="http://www.thinkcleaner.com">
     <params>
-        <param field="Mode1" label="IP Address" required="true" width="200px" />
+        <param field="Mode1" label="IP Address Think Cleaner" required="true" width="200px" />
+        <param field="Mode2" label="IP Address Domoticz" required="true" width="200px" />
+        <param field="Mode3" label="Port Domoticz" required="true" width="200px" />
         <param field="Mode6" label="Debug" width="100px">
             <options>
                 <option label="True"    value="Debug"/>
@@ -20,6 +22,7 @@ import Domoticz
 import sys
 import json
 import datetime
+import requests
 import urllib.request
 import urllib.error
 
@@ -42,9 +45,9 @@ class BasePlugin:
 
         logDebugMessage(str(Devices))
         if (len(Devices) == 0):
-            Domoticz.Device(Name="Current state",  Unit=1, TypeName="Custom", Options = { "Custom" : "1;%"}, Used=1).Create()
+            Domoticz.Device(Name=self.name,  Unit=1, TypeName="Custom", Options = { "Custom" : "1;%"}, Used=1).Create()
 
-            logDebugMessage("Devices created.")
+            logDebugMessage("Device " + self.name  + " created.")
 
         Domoticz.Heartbeat(self.heartbeat)
         self.intervalCounter = 0
@@ -168,7 +171,9 @@ class BasePlugin:
 
 
     def updateDeviceCurrent(self):
-        # Device 1 - current today
+        # Device 1 - current status
+        DOM_IP   = Parameters["Mode2"]
+        DOM_PORT = Parameters["Mode3"]
 
         self.previousBattery = self.battery
         logDebugMessage("Current level " + str(self.battery))
@@ -185,7 +190,19 @@ class BasePlugin:
          cause = e.args[0]
          logErrorMessage("Cause " + str(cause))
 
-        Devices[1].Update(name=self.name + " " + self.state)
+        NAME = self.name + "-" + self.state
+        DESC = self.state
+        IDX  = 900
+
+        # URL prep
+        httpurl = "http://"+DOM_IP+":"+DOM_PORT+"/json.htm?type=setused&param=udevice&devoptions=1;%25&switchtype=General&used=true&idx="+str(IDX)+"&name="+str(NAME)+"&description="+str(DESC)
+        logDebugMessage("http url " + str(httpurl))
+
+        # Sending data to Domoticz
+        r = requests.get(httpurl)
+        logDebugMessage("Result " + str(r))
+
+
 
         return
 
