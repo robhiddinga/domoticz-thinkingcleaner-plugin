@@ -58,7 +58,7 @@ class BasePlugin:
         try:
          Devices[1].Update(0, sValue=str(Devices[1].sValue), Image=Images["RoombaVacuum"].ID)
         except:
-            logDebugMessage("Error: device create ")
+            logDebugMessage("Error @ device create or exists allraedy ")
 
         return True
 
@@ -169,11 +169,29 @@ class BasePlugin:
 
         return
 
+    def stateBeautifier(self, state):
+        #st_base_full   = At homebase: full charging
+        #st_dock        = Docking - Searching homebase
+        #st_clean       = Cleaning
+        #st_base_wait   = At homebase: waiting
+
+        status = "Unknown"
+        if state == "st_dock":
+            status = "Going%20home"
+        if state == "st_clean":
+            status = "Cleaning%20for%20you!"
+        if state == "st_base_full":
+            status = "At%20home%20and%20charging"
+        if state == "st_base_wait":
+            status = "At%20home%20and%20waiting"
+        return status
 
     def updateDeviceCurrent(self):
         # Device 1 - current status
         DOM_IP   = Parameters["Mode2"]
         DOM_PORT = Parameters["Mode3"]
+
+        #st_base_full = At homebase: full charging
 
         self.previousBattery = self.battery
         logDebugMessage("Current level " + str(self.battery))
@@ -190,8 +208,10 @@ class BasePlugin:
          cause = e.args[0]
          logErrorMessage("Cause " + str(cause))
 
-        NAME = self.name + "-" + self.state
-        DESC = self.state
+        status = self.stateBeautifier(str(self.state))
+
+        NAME = self.name + "-" + status
+        DESC = status
         IDX  = 900
 
         # URL prep
