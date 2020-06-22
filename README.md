@@ -1,7 +1,7 @@
-# domoticz roomba thinkcleaner
- domoticz think cleaner plugin, pyhton
+# domoticz roomba thinkingcleaner
+ domoticz thinking cleaner plugin, pyhton
 
-The script creates a device with status info of your ThinkCleaner.  
+The script creates a device with status info of your ThinkingCleaner.  
 Create yourself a dummy device with on anf off action to control your Roomba:  
 <ipadress>/command.json?command=clean and  
 <ipadress>/command.json?command=dock
@@ -10,7 +10,7 @@ Create yourself a dummy device with on anf off action to control your Roomba:
 
  goto your plugins folder
  ```bash
-  git clone https://github.com/robhiddinga/domoticz-thinkcleaner-plugin
+  git clone https://github.com/robhiddinga/domoticz-thinkingcleaner-plugin
 ```
 update
 
