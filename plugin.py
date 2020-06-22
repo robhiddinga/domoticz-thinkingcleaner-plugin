@@ -1,11 +1,11 @@
-#           Domoticz Roomba ThinkCleaner Plugin
+#           Domoticz ThinkingCleaner Plugin for Roomba
 #
 #           Author:     RobH 2020.
 #
 """
-<plugin key="ThinkCleaner" name="Think Cleaner" author="RobH" version="0.8.0" wikilink="https://github.com/robhiddinga/domoticz-thinkcleaner-plugin.git" externallink="http://www.thinkcleaner.com">
+<plugin key="ThinkingCleaner" name="Thinking Cleaner" author="RobH" version="0.8.0" wikilink="https://github.com/robhiddinga/domoticz-thinkingcleaner-plugin.git" externallink="http://www.thinkingcleaner.com">
     <params>
-        <param field="Mode1" label="IP Address Think Cleaner" required="true" width="200px" />
+        <param field="Mode1" label="IP Address Thinking Cleaner" required="true" width="200px" />
         <param field="Mode2" label="IP Address Domoticz" required="true" width="200px" />
         <param field="Mode3" label="Port Domoticz" required="true" width="200px" />
         <param field="Mode6" label="Debug" width="100px">
@@ -56,7 +56,7 @@ class BasePlugin:
         if ('RoombaOff' not in Images): Domoticz.Image('roombaVacuum.zip').Create()
 
         try:
-         Devices[1].Update(0, sValue=str(Devices[1].sValue), Image=Images["RoombaVacuum"].ID)
+         Devices[1].Update(0, sValue=str(Devices[1].sValue), Image=Images["RoombaOff"].ID)
         except:
             logDebugMessage("Error @ device create or exists allraedy.")
 
@@ -235,7 +235,7 @@ class BasePlugin:
 
     def updateDeviceOff(self):
 
-        Devices[1].Update(0, "0", Images["FroniusInverterOff"].ID)
+        Devices[1].Update(0, "0", Images["RoombaOff"].ID)
 
         self.battery  = self.previousBattery
         self.state    = self.previousState
@@ -267,7 +267,7 @@ def onHeartbeat():
 def logDebugMessage(message):
     if (Parameters["Mode6"] == "Debug"):
         now = datetime.datetime.now()
-        f = open(Parameters["HomeFolder"] + "domoticz-roomba-plugin.log", "a")
+        f = open(Parameters["HomeFolder"] + "domoticz-thinkcleaner-plugin.log", "a")
         f.write("DEBUG - " + now.isoformat() + " - " + message + "\r\n")
         f.close()
     Domoticz.Debug(message)
@@ -275,7 +275,7 @@ def logDebugMessage(message):
 def logErrorMessage(message):
     if (Parameters["Mode6"] == "Debug"):
         now = datetime.datetime.now()
-        f = open(Parameters["HomeFolder"] + "domoticz-roomba-plugin.log", "a")
+        f = open(Parameters["HomeFolder"] + "domoticz-thinkcleaner-plugin.log", "a")
         f.write("ERROR - " + now.isoformat() + " - " + message + "\r\n")
         f.close()
     Domoticz.Error(message)
