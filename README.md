@@ -1,8 +1,8 @@
 # domoticz thinkingcleaner plugin for your Roomba
- domoticz thinking cleaner plugin, pyhton
+ domoticz thinking cleaner plugin, python
 
 The script creates a device with status info of your ThinkingCleaner.  
-Create yourself a dummy device with on anf off action to control your Roomba:  
+Create yourself a dummy device with on and off action to control your Roomba:  
 <ipadress>/command.json?command=clean and  
 <ipadress>/command.json?command=dock
 
@@ -26,7 +26,7 @@ sudo service domoticz.sh restart
 Now go to **Setup**, **Hardware** in Domoticz.
 There you add **ThinkingCleaner**.
 
-Fill in the IP address of your ThinkCleaner.  
+Fill in the IP address of your ThinkingCleaner.  
 And the adress and port of your Domoticz server.  
 
 Have fun!
