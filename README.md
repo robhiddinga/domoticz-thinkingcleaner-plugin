@@ -1,4 +1,4 @@
-# domoticz roomba thinkingcleaner
+# domoticz thinkingcleaner plugin for your Roomba
  domoticz thinking cleaner plugin, pyhton
 
 The script creates a device with status info of your ThinkingCleaner.  
