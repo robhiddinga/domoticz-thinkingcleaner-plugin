@@ -170,28 +170,57 @@ class BasePlugin:
         return
 
     def stateBeautifier(self, state):
-        #st_base_full   = At homebase: full charging
-        #st_dock        = Docking - Searching homebase
-        #st_clean       = Cleaning
-        #st_base_wait   = At homebase: waiting
 
         status = state
 
+        if state == "st_delayed":
+            status = "Delayed%20vacuuming%20will%20start%20soon%20.."
+        if state == "st_plug":
+            status = "plugged%20in%20not%20charging"
+        if state == "st_plug_recon":
+            status = "plugged%20in%20reconditioning%20charging"
+        if state == "st_plug_full":
+            status = "plugged%20in%20full%20charging"
+        if state == "st_plug_trickle":
+            status = "plugged%20in%20trickle%20charging"
+        if state == "st_plug_wait":
+            status = "plugged%20in%20and%20waiting"
+        if state == "st_base":
+            status = "at%20home%20and%20not%20charging"
         if state == "st_remote":
             status = "remote%20waiting%20for%20command"
-        if state == "st_off":
+        if state == "st_wait":
             status = "remote%20and%20no%20command"
+        if state == "st_off":
+            status = "off"
         if state == "st_dock":
             status = "going%20home"
+        if state == "st_cleanstop":
+            status = "stopped%20vacuuming"
+        if state == "st_stopped":
+            status = "stopped"
         if state == "st_clean":
             status = "vacuuming%20your%20house"
+        if state == "st_clean_spot":
+            status = "spot%20cleaning%20your%20floor"
+        if state == "st_clean_max":
+            status = "max%20vacuuming%20your%20house"
         if state == "st_base_full":
             status = "at%20home%20and%20charging"
+        if state == "st_base_recon":
+            status = "at%20home%20and%20reconditioning%20charging"
         if state == "st_base_trickle":
             status = "at%20home%20and%20trickle%20charging"
         if state == "st_base_wait":
             status = "at%20home%20and%20waiting"
-
+        if state == "st_picked":
+            status = "beeing%20picked%20up"
+        if state == "st_locate":
+            status = "playing%20hide%20and%20seec"
+        if state == "st_error":
+            status = "in%20error.%20Waiting%20for%20you"
+        if state == "st_unknown":
+            status = "completely%20lost"
 
         return status
 
