@@ -24,7 +24,7 @@ sudo service domoticz.sh restart
 ```
 
 Now go to **Setup**, **Hardware** in Domoticz.
-There you add **ThinkCleaner**.
+There you add **ThinkingCleaner**.
 
 Fill in the IP address of your ThinkCleaner.  
 And the adress and port of your Domoticz server.  
