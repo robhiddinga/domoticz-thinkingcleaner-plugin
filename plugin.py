@@ -3,7 +3,7 @@
 #           Author:     RobH 2020.
 #
 """
-<plugin key="ThinkCleaner" name="Think Cleaner" author="RobH" version="0.2.1" wikilink="https://github.com/robhiddinga/domoticz-thinkcleaner-plugin.git" externallink="http://www.thinkcleaner.com">
+<plugin key="ThinkCleaner" name="Think Cleaner" author="RobH" version="0.8.0" wikilink="https://github.com/robhiddinga/domoticz-thinkcleaner-plugin.git" externallink="http://www.thinkcleaner.com">
     <params>
         <param field="Mode1" label="IP Address Think Cleaner" required="true" width="200px" />
         <param field="Mode2" label="IP Address Domoticz" required="true" width="200px" />
@@ -58,7 +58,7 @@ class BasePlugin:
         try:
          Devices[1].Update(0, sValue=str(Devices[1].sValue), Image=Images["RoombaVacuum"].ID)
         except:
-            logDebugMessage("Error @ device create or exists allraedy ")
+            logDebugMessage("Error @ device create or exists allraedy.")
 
         return True
 
@@ -175,23 +175,30 @@ class BasePlugin:
         #st_clean       = Cleaning
         #st_base_wait   = At homebase: waiting
 
-        status = "Unknown"
+        status = state
+
+        if state == "st_remote":
+            status = "remote%20waiting%20for%20command"
+        if state == "st_off":
+            status = "remote%20and%20no%20command"
         if state == "st_dock":
-            status = "Going%20home"
+            status = "going%20home"
         if state == "st_clean":
-            status = "Cleaning%20for%20you!"
+            status = "vacuuming%20your%20house"
         if state == "st_base_full":
-            status = "At%20home%20and%20charging"
+            status = "at%20home%20and%20charging"
+        if state == "st_base_trickle":
+            status = "at%20home%20and%20trickle%20charging"
         if state == "st_base_wait":
-            status = "At%20home%20and%20waiting"
+            status = "at%20home%20and%20waiting"
+
+
         return status
 
     def updateDeviceCurrent(self):
         # Device 1 - current status
         DOM_IP   = Parameters["Mode2"]
         DOM_PORT = Parameters["Mode3"]
-
-        #st_base_full = At homebase: full charging
 
         self.previousBattery = self.battery
         logDebugMessage("Current level " + str(self.battery))
@@ -210,7 +217,7 @@ class BasePlugin:
 
         status = self.stateBeautifier(str(self.state))
 
-        NAME = self.name + "-" + status
+        NAME = self.name + "%20is%20" + status
         DESC = status
         IDX  = 900
 
