@@ -1,5 +1,5 @@
-# python roomba thinkcleaner
- domoticz think cleaner
+# domoticz roomba thinkcleaner
+ domoticz think cleaner plugin, pyhton
 
 The script creates a device with status info of your ThinkCleaner.  
 Create yourself a dummy device with on anf off action to control your Roomba:  
